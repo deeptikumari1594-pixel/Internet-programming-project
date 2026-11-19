@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications - BioLab Equipment Booking</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Shared Header & Navigation -->
+  <header>
+    <nav>
+      <a href="index.html" class="logo">🔬 BioLab Equip</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalogue.html">Catalogue</a></li>
+        <li><a href="availability.html">Availability</a></li>
+        <li><a href="booking.html">Book Equipment</a></li>
+        <li><a href="history.html">My Bookings</a></li>
+        <li><a href="notifications.html" class="active">Notifications</a></li>
+        <li><a href="admin.html">Admin</a></li>
+        <li><a href="approvals.html">Approvals</a></li>
+        <li><a href="maintenance.html">Maintenance</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-title">
+      <h1>Notifications & Alerts</h1>
+      <p>Stay informed about reservation approvals, maintenance schedules, and laboratory health & safety notices.</p>
+    </div>
+
+    <!-- Filter & Management Bar -->
+    <div class="filter-bar">
+      <div>
+        <label for="notif-filter" style="font-size: 0.85rem; color: var(--grey-text);">Filter Type</label>
+        <select id="notif-filter">
+          <option value="all">All Alerts</option>
+          <option value="success">Approvals (Success)</option>
+          <option value="warning">Maintenance Notices (Warning)</option>
+          <option value="danger">Rejections / Cancellations (Alert)</option>
+          <option value="info">General Info & Briefings</option>
+        </select>
+      </div>
+
+      <div style="margin-left: auto; align-self: flex-end; display: flex; gap: 0.5rem;">
+        <button class="btn btn-outline btn-sm" id="btn-mark-all">Mark All as Read</button>
+        <button class="btn btn-reject btn-sm" id="btn-clear-all">Clear All</button>
+      </div>
+    </div>
+
+    <!-- Notification Feed -->
+    <section id="notifications-container">
+      <!-- Populated dynamically -->
+    </section>
+
+    <!-- Lab Safety Banner -->
+    <div class="banner-notice">
+      <div>
+        <strong>Notice to all researchers:</strong> Laboratory biosafety guidelines require fume hood airflow checks and UV deactivation logs to be filled every evening.
+      </div>
+      <a href="catalogue.html" class="btn btn-outline btn-sm">Catalogue</a>
+    </div>
+  </main>
+
+  <!-- Shared Footer -->
+  <footer>
+    <p>&copy; 2026 BioLab Equipment Booking Portal &bull; Department of Biological Sciences &bull; Support: lab-support@biolab.edu</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    function renderNotifications() {
+      const notifs = LabStore.getNotifications();
+      const container = document.getElementById("notifications-container");
+      const filterType = document.getElementById("notif-filter").value;
+
+      const filtered = notifs.filter(n => {
+        return filterType === "all" || n.type === filterType;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="padding: 2.5rem; text-align: center; background: var(--white); border: 1px dashed var(--border-color); border-radius: var(--radius);">
+            <h3>No notifications to display</h3>
+            <p style="color: var(--grey-text);">You are all caught up with your laboratory alerts.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(n => {
+        let alertClass = "alert-info";
+        if (n.type === "success") alertClass = "alert-success";
+        if (n.type === "warning") alertClass = "alert-warning";
+        if (n.type === "danger") alertClass = "alert-danger";
+
+        return `
+          <div class="alert ${alertClass}">
+            <div style="display: flex; justify-content: space-between; align-items: baseline;">
+              <strong>${n.title}</strong>
+              <span class="time">${n.time}</span>
+            </div>
+            <p style="margin: 0.35rem 0 0.5rem;">${n.text}</p>
+            <div class="action-buttons">
+              ${n.type === 'success' ? '<a href="history.html" class="btn btn-sm">Go to My Bookings</a>' : ''}
+              ${n.type === 'warning' ? '<a href="maintenance.html" class="btn btn-sm btn-outline">Check Maintenance</a>' : ''}
+              ${n.type === 'danger' ? '<a href="booking.html" class="btn btn-sm">Book Another Time</a>' : ''}
+              <button class="btn btn-outline btn-sm" onclick="dismissNotification(${n.id})">Dismiss</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function dismissNotification(id) {
+      let notifs = LabStore.getNotifications();
+      notifs = notifs.filter(n => n.id !== id);
+      LabStore.saveNotifications(notifs);
+      renderNotifications();
+    }
+
+    document.getElementById("notif-filter").addEventListener("change", renderNotifications);
+
+    document.getElementById("btn-clear-all").addEventListener("click", () => {
+      if (confirm("Clear all notifications?")) {
+        LabStore.saveNotifications([]);
+        renderNotifications();
+      }
+    });
+
+    document.getElementById("btn-mark-all").addEventListener("click", () => {
+      alert("All notifications marked as read.");
+    });
+
+    document.addEventListener("DOMContentLoaded", renderNotifications);
+  </script>
+</body>
+</html>

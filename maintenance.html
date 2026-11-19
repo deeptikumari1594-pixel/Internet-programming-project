@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maintenance | Digital Lab Equipment Booking</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">Digital Lab Equipment Booking</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="equipment.html">Equipment</a>
+      <a href="booking.html">Book Now</a>
+      <a href="admin.html">Admin</a>
+      <a href="approvals.html">Approvals</a>
+      <a href="maintenance.html" class="active">Maintenance</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h1>Maintenance Blocking</h1>
+      <div class="alert alert-info">
+        Blocked dates will show as unavailable to users, and they will not be able to book the equipment during this period.
+      </div>
+    </section>
+
+    <section>
+      <h2>Block Equipment</h2>
+      <div class="form-box">
+        <form action="#" method="post">
+          <div class="form-group">
+            <label for="equipment">Equipment</label>
+            <select id="equipment" name="equipment" required>
+              <option value="">-- Select equipment --</option>
+              <option>Digital Oscilloscope</option>
+              <option>Microscope (Binocular)</option>
+              <option>3D Printer</option>
+              <option>Spectrophotometer</option>
+              <option>Soldering Station</option>
+              <option>Centrifuge</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="from-date">From Date</label>
+              <input type="date" id="from-date" name="from_date" required>
+            </div>
+            <div class="form-group">
+              <label for="to-date">To Date</label>
+              <input type="date" id="to-date" name="to_date" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="reason">Reason</label>
+            <textarea id="reason" name="reason" rows="4" placeholder="Describe the maintenance work" required></textarea>
+          </div>
+
+          <button type="submit" class="btn">Block Equipment</button>
+        </form>
+      </div>
+    </section>
+
+    <section>
+      <h2>Existing Maintenance Blocks</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Equipment</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Reason</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>3D Printer</td>
+              <td>20 Oct 2026</td>
+              <td>25 Oct 2026</td>
+              <td>Nozzle replacement</td>
+              <td><span class="badge badge-maintenance">Under Maintenance</span></td>
+            </tr>
+            <tr>
+              <td>Spectrophotometer</td>
+              <td>21 Oct 2026</td>
+              <td>24 Oct 2026</td>
+              <td>Annual calibration</td>
+              <td><span class="badge badge-maintenance">Under Maintenance</span></td>
+            </tr>
+            <tr>
+              <td>Centrifuge</td>
+              <td>22 Oct 2026</td>
+              <td>23 Oct 2026</td>
+              <td>Rotor inspection</td>
+              <td><span class="badge badge-maintenance">Under Maintenance</span></td>
+            </tr>
+            <tr>
+              <td>Digital Oscilloscope</td>
+              <td>28 Oct 2026</td>
+              <td>30 Oct 2026</td>
+              <td>Probe replacement</td>
+              <td><span class="badge badge-maintenance">Scheduled</span></td>
+            </tr>
+            <tr>
+              <td>Soldering Station</td>
+              <td>02 Nov 2026</td>
+              <td>03 Nov 2026</td>
+              <td>Heating element check</td>
+              <td><span class="badge badge-maintenance">Scheduled</span></td>
+            </tr>
+            <tr>
+              <td>Microscope (Binocular)</td>
+              <td>10 Oct 2026</td>
+              <td>12 Oct 2026</td>
+              <td>Lens cleaning</td>
+              <td><span class="badge badge-maintenance">Completed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Digital Lab Equipment Booking | College Group Project</p>
+  </footer>
+
+</body>
+</html>

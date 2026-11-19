@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Equipment - BioLab Equipment Booking</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Shared Header & Navigation -->
+  <header>
+    <nav>
+      <a href="index.html" class="logo">🔬 BioLab Equip</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalogue.html">Catalogue</a></li>
+        <li><a href="availability.html">Availability</a></li>
+        <li><a href="booking.html" class="active">Book Equipment</a></li>
+        <li><a href="history.html">My Bookings</a></li>
+        <li><a href="notifications.html">Notifications</a></li>
+        <li><a href="admin.html">Admin</a></li>
+        <li><a href="approvals.html">Approvals</a></li>
+        <li><a href="maintenance.html">Maintenance</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-title">
+      <h1>Reserve Laboratory Equipment</h1>
+      <p>Submit your formal instrument requisition. All reservations are reviewed by facility administrators.</p>
+    </div>
+
+    <!-- Feedback alert container -->
+    <div id="confirmation-banner" style="display:none; max-width: 560px; margin-bottom: 1.5rem;"></div>
+
+    <form class="form-box" id="booking-form">
+      <!-- Instrument Selection -->
+      <div class="form-group">
+        <label for="equipment-select">Select Equipment *</label>
+        <select id="equipment-select" name="equipment" required>
+          <option value="" disabled selected>-- Choose an instrument --</option>
+        </select>
+      </div>
+
+      <!-- Researcher Info -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="researcher-name">Full Name *</label>
+          <input type="text" id="researcher-name" name="name" required placeholder="e.g. Dr. Jane Foster">
+        </div>
+        <div class="form-group">
+          <label for="researcher-role">Academic Role *</label>
+          <select id="researcher-role" name="role" required>
+            <option value="Graduate Student">Graduate Student</option>
+            <option value="Postdoc Fellow">Postdoctoral Fellow</option>
+            <option value="Senior Researcher">Senior Researcher / PI</option>
+            <option value="Lab Technician">Lab Technician</option>
+            <option value="Undergraduate">Undergraduate Student</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="researcher-email">Institutional Email *</label>
+        <input type="email" id="researcher-email" name="email" required placeholder="name@biolab.edu">
+      </div>
+
+      <!-- Date & Time Slot -->
+      <div class="form-group">
+        <label for="booking-date">Reservation Date *</label>
+        <input type="date" id="booking-date" name="date" required value="2026-10-27">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="start-time">Start Time *</label>
+          <select id="start-time" name="startTime" required>
+            <option value="08:00">08:00 AM</option>
+            <option value="09:00">09:00 AM</option>
+            <option value="10:00" selected>10:00 AM</option>
+            <option value="11:00">11:00 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="13:00">01:00 PM</option>
+            <option value="14:00">02:00 PM</option>
+            <option value="15:00">03:00 PM</option>
+            <option value="16:00">04:00 PM</option>
+            <option value="17:00">05:00 PM</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="end-time">End Time *</label>
+          <select id="end-time" name="endTime" required>
+            <option value="09:00">09:00 AM</option>
+            <option value="10:00">10:00 AM</option>
+            <option value="11:00">11:00 AM</option>
+            <option value="12:00" selected>12:00 PM</option>
+            <option value="13:00">01:00 PM</option>
+            <option value="14:00">02:00 PM</option>
+            <option value="15:00">03:00 PM</option>
+            <option value="16:00">04:00 PM</option>
+            <option value="17:00">05:00 PM</option>
+            <option value="18:00">06:00 PM</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Project Details -->
+      <div class="form-group">
+        <label for="project-name">Project / Grant Title *</label>
+        <input type="text" id="project-name" name="project" required placeholder="e.g. NIH Grant #204 - Mitochondrial Dynamics">
+      </div>
+
+      <div class="form-group">
+        <label for="booking-purpose">Purpose & Experimental Protocol *</label>
+        <textarea id="booking-purpose" name="purpose" required placeholder="Briefly specify sample types, lasers/rotors required, hazardous materials, or specific configurations..."></textarea>
+      </div>
+
+      <!-- Safety Confirmation Checkbox -->
+      <div class="form-group" style="display: flex; align-items: flex-start; gap: 0.6rem;">
+        <input type="checkbox" id="safety-check" required style="width: auto; margin-top: 0.25rem;">
+        <label for="safety-check" style="font-weight: normal; font-size: 0.9rem;">
+          I certify that I have undergone laboratory safety induction, completed the operational checklist, and will leave the workstation sanitised and logged.
+        </label>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons" style="margin-top: 1.5rem;">
+        <button type="submit" class="btn">Submit Booking Request</button>
+        <a href="catalogue.html" class="btn btn-outline">Cancel</a>
+      </div>
+    </form>
+  </main>
+
+  <!-- Shared Footer -->
+  <footer>
+    <p>&copy; 2026 BioLab Equipment Booking Portal &bull; Department of Biological Sciences &bull; Support: lab-support@biolab.edu</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const equipList = LabStore.getEquipment();
+      const selectEl = document.getElementById("equipment-select");
+      const urlParams = new URLSearchParams(window.location.search);
+      const preselectedEq = urlParams.get("equipment");
+      const preselectedDate = urlParams.get("date");
+      const preselectedSlot = urlParams.get("slot");
+
+      // Populate dropdown
+      equipList.forEach(eq => {
+        const opt = document.createElement("option");
+        opt.value = eq.id;
+        opt.textContent = `${eq.name} (${eq.room}) ${eq.status === 'maintenance' ? '[MAINTENANCE]' : ''}`;
+        if (eq.status === 'maintenance') {
+          opt.disabled = true;
+        }
+        if (preselectedEq && (preselectedEq === eq.id || preselectedEq === eq.name)) {
+          opt.selected = true;
+        }
+        selectEl.appendChild(opt);
+      });
+
+      if (preselectedDate) {
+        document.getElementById("booking-date").value = preselectedDate;
+      }
+
+      if (preselectedSlot) {
+        const parts = decodeURIComponent(preselectedSlot).split(" - ");
+        if (parts.length === 2) {
+          document.getElementById("start-time").value = parts[0].trim();
+          document.getElementById("end-time").value = parts[1].trim();
+        }
+      }
+
+      // Handle submission
+      document.getElementById("booking-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const selectedEqId = selectEl.value;
+        const chosenEquipment = equipList.find(e => e.id === selectedEqId);
+        const startTime = document.getElementById("start-time").value;
+        const endTime = document.getElementById("end-time").value;
+
+        if (startTime >= endTime) {
+          alert("End time must be after start time.");
+          return;
+        }
+
+        const newId = "BK-" + Math.floor(1000 + Math.random() * 9000);
+        const newBooking = {
+          id: newId,
+          equipmentId: selectedEqId,
+          equipmentName: chosenEquipment ? chosenEquipment.name : "Custom Instrument",
+          user: document.getElementById("researcher-name").value,
+          role: document.getElementById("researcher-role").value,
+          email: document.getElementById("researcher-email").value,
+          date: document.getElementById("booking-date").value,
+          timeSlot: `${startTime} - ${endTime}`,
+          project: document.getElementById("project-name").value,
+          notes: document.getElementById("booking-purpose").value,
+          status: "Pending",
+          createdAt: new Date().toISOString().replace("T", " ").substring(0, 16)
+        };
+
+        const bookings = LabStore.getBookings();
+        bookings.unshift(newBooking);
+        LabStore.saveBookings(bookings);
+
+        // Notify
+        LabStore.addNotification(
+          "info",
+          "Booking Request Submitted",
+          `Your reservation request (${newId}) for ${newBooking.equipmentName} on ${newBooking.date} (${newBooking.timeSlot}) has been queued for review.`
+        );
+
+        // Show confirmation banner
+        const banner = document.getElementById("confirmation-banner");
+        banner.style.display = "block";
+        banner.innerHTML = `
+          <div class="alert alert-success">
+            <strong>Request Submitted Successfully!</strong>
+            <p style="margin-top:0.4rem; margin-bottom: 0.5rem;">
+              Your reservation reference is <strong>${newId}</strong> for <strong>${newBooking.equipmentName}</strong>.
+            </p>
+            <div class="action-buttons">
+              <a href="history.html" class="btn btn-sm">View in My Bookings</a>
+              <a href="availability.html" class="btn btn-outline btn-sm">View Schedule</a>
+            </div>
+            <span class="time">Status: Pending Administrative Approval</span>
+          </div>
+        `;
+
+        document.getElementById("booking-form").reset();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home | Digital Lab Equipment Booking</title>
+  <!-- common stylesheet, same line in every page -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar: copy this same block in every page, only move class="active" -->
+  <header>
+    <nav>
+      <a href="index.html" class="logo">
+ 
+  <span>Lab Booking</span>
+</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="catalogue.html">Catalogue</a></li>
+        <li><a href="availability.html">Availability</a></li>
+        <li><a href="booking.html">Book</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="notifications.html">Notifications</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Intro -->
+    <section class="hero">
+  <div class="hero-text">
+    <div class="page-title">
+      <h1>Digital Lab Equipment Booking</h1>
+      <p>A simple way for students and researchers to book shared laboratory equipment without clashes.</p>
+    </div>
+    <p>
+      Shared lab equipment like microscopes and centrifuges is used by many people.
+      When two people try to use the same machine at the same time, work gets delayed.
+      This system lets you check what is free, request a slot, and track your bookings in one place.
+    </p>
+    <a href="catalogue.html" class="btn">Browse equipment</a>
+    <a href="booking.html" class="btn btn-outline">Book now</a>
+  </div>
+
+  <img src="images/hero.jpeg" alt="Laboratory equipment" class="hero-img">
+</section>
+    <!-- Main features -->
+    <section>
+      <h2>What you can do</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Browse equipment</h3>
+          <p>See all lab equipment with its location and whether it is available or under maintenance.</p>
+          <a href="catalogue.html" class="btn btn-outline">View catalogue</a>
+        </div>
+        <div class="card">
+          <h3>Check availability</h3>
+          <p>Look at the weekly slot table to find free time slots. Booked slots are shown in red.</p>
+          <a href="availability.html" class="btn btn-outline">Check slots</a>
+        </div>
+        <div class="card">
+          <h3>Book a slot</h3>
+          <p>Fill the request form. Slots that are already booked cannot be selected, so there are no conflicts.</p>
+          <a href="booking.html" class="btn btn-outline">Make a request</a>
+        </div>
+        <div class="card">
+          <h3>Track bookings</h3>
+          <p>View your usage history and see whether each request is pending, approved or rejected.</p>
+          <a href="history.html" class="btn btn-outline">View history</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick numbers (sample data) -->
+    <section>
+      <h2>Lab at a glance</h2>
+      <div class="card-grid">
+        <div class="card stat-card total">
+          <div class="number">8</div>
+          <div class="label">Equipment listed</div>
+        </div>
+        <div class="card stat-card ok">
+          <div class="number">6</div>
+          <div class="label">Available now</div>
+        </div>
+        <div class="card stat-card maint">
+          <div class="number">2</div>
+          <div class="label">Under maintenance</div>
+        </div>
+        <div class="card stat-card pending">
+          <div class="number">5</div>
+          <div class="label">Pending requests</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How booking works -->
+    <section>
+      <h2>How it works</h2>
+      <details>
+        <summary>1. Choose equipment</summary>
+        <p>Open the catalogue and pick the equipment you need. Equipment under maintenance cannot be booked.</p>
+      </details>
+      <details>
+        <summary>2. Pick a free slot</summary>
+        <p>Use the availability page to find a green slot, then fill the booking form with your date and time.</p>
+      </details>
+      <details>
+        <summary>3. Wait for approval</summary>
+        <p>The lab admin approves or rejects the request. You will get a message on the notifications page.</p>
+      </details>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Digital Lab Equipment Booking | Team Project</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Availability | Digital Lab Equipment Booking</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Lab Booking</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalogue.html">Catalogue</a></li>
+        <li><a href="availability.html" class="active">Availability</a></li>
+        <li><a href="booking.html">Book</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="notifications.html">Notifications</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class="page-title">
+      <h1>Equipment Availability</h1>
+      <p>Check which time slots are free before you send a booking request.</p>
+    </div>
+
+    <!-- Choose equipment -->
+    <section>
+      <form class="form-box" action="availability.html" method="get">
+        <div class="form-group">
+          <label for="equipment">Select equipment</label>
+          <select id="equipment" name="equipment">
+            <option>Compound Microscope</option>
+            <option>Centrifuge</option>
+            <option>UV-Vis Spectrophotometer</option>
+            <option>3D Printer</option>
+            <option>Digital Oscilloscope</option>
+            <option>PCR Machine</option>
+          </select>
+        </div>
+        <button type="submit" class="btn">Show availability</button>
+      </form>
+    </section>
+
+    <!-- Weekly table -->
+    <section>
+      <h2>Compound Microscope</h2>
+      <p>Week: 9 Nov 2026 to 14 Nov 2026 (sample data)</p>
+
+      <!-- colour guide -->
+      <div class="legend">
+        <span><span class="badge badge-approved">Free</span> can be booked</span>
+        <span><span class="badge badge-rejected">Booked</span> already taken</span>
+        <span><span class="badge badge-maintenance">Maintenance</span> blocked by admin</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Mon</th>
+              <th>Tue</th>
+              <th>Wed</th>
+              <th>Thu</th>
+              <th>Fri</th>
+              <th>Sat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>9:00 - 11:00</th>
+              <td class="slot free">Free</td>
+              <td class="slot booked">Booked</td>
+              <td class="slot free">Free</td>
+              <td class="slot free">Free</td>
+              <td class="slot booked">Booked</td>
+              <td class="slot free">Free</td>
+            </tr>
+            <tr>
+              <th>11:00 - 13:00</th>
+              <td class="slot booked">Booked</td>
+              <td class="slot free">Free</td>
+              <td class="slot free">Free</td>
+              <td class="slot booked">Booked</td>
+              <td class="slot free">Free</td>
+              <td class="slot free">Free</td>
+            </tr>
+            <tr>
+              <th>14:00 - 16:00</th>
+              <td class="slot free">Free</td>
+              <td class="slot free">Free</td>
+              <td class="slot booked">Booked</td>
+              <td class="slot free">Free</td>
+              <td class="slot free">Free</td>
+              <td class="slot maintenance">Maintenance</td>
+            </tr>
+            <tr>
+              <th>16:00 - 18:00</th>
+              <td class="slot free">Free</td>
+              <td class="slot free">Free</td>
+              <td class="slot free">Free</td>
+              <td class="slot booked">Booked</td>
+              <td class="slot free">Free</td>
+              <td class="slot maintenance">Maintenance</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Warning + button -->
+    <section>
+      <div class="alert alert-warning">
+        Red slots are already booked and cannot be requested. Choose a green slot to avoid a conflict.
+      </div>
+      <a href="booking.html" class="btn">Book a slot</a>
+      <a href="catalogue.html" class="btn btn-outline">Back to catalogue</a>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Digital Lab Equipment Booking | Team Project</p>
+  </footer>
+
+</body>
+</html>

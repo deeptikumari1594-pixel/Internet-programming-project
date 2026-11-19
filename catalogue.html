@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catalogue | Digital Lab Equipment Booking</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="index.html" class="logo">Lab Booking</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalogue.html" class="active">Catalogue</a></li>
+        <li><a href="availability.html">Availability</a></li>
+        <li><a href="booking.html">Book</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="notifications.html">Notifications</a></li>
+        <li><a href="admin.html">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class="page-title">
+      <h1>Equipment Catalogue</h1>
+      <p>Browse all shared laboratory equipment and check its status before booking.</p>
+    </div>
+
+    <!-- Note about statuses -->
+    <div class="alert alert-info">
+      Equipment marked <b>Under Maintenance</b> cannot be booked until the maintenance is finished.
+    </div>
+
+    <section>
+      <div class="card-grid">
+
+        <!-- To add a picture, put an img tag as the first thing inside a card:
+             <img src="images/microscope.jpg" alt="Microscope"> -->
+
+        <div class="card">
+           
+          <h3>Compound Microscope</h3>
+          <p class="meta">Category: Biology<br>Location: Biology Lab, Room 204</p>
+          <p><span class="badge badge-approved">Available</span></p>
+          <a href="booking.html" class="btn">Book</a>
+         
+        </div>
+
+        <div class="card">
+          
+          <h3>Centrifuge</h3>
+          <p class="meta">Category: Chemistry<br>Location: Chemistry Lab, Room 110</p>
+          <p><span class="badge badge-approved">Available</span></p>
+          <a href="booking.html" class="btn">Book</a>
+          
+        </div>
+
+        <div class="card">
+          
+          <h3>UV-Vis Spectrophotometer</h3>
+          <p class="meta">Category: Chemistry<br>Location: Chemistry Lab, Room 112</p>
+          <p><span class="badge badge-approved">Available</span></p>
+          <a href="booking.html" class="btn">Book</a>
+          
+        </div>
+
+        <div class="card">
+          
+          <h3>3D Printer</h3>
+          <p class="meta">Category: Engineering<br>Location: Design Lab, Room 301</p>
+          <p><span class="badge badge-approved">Available</span></p>
+          <a href="booking.html" class="btn">Book</a>
+          
+
+        </div>
+
+        <div class="card">
+          
+          <h3>Digital Oscilloscope</h3>
+          <p class="meta">Category: Physics<br>Location: Physics Lab, Room 220</p>
+          <p><span class="badge badge-approved">Available</span></p>
+          <a href="booking.html" class="btn">Book</a>
+          
+        </div>
+
+        <div class="card">
+          
+          <h3>PCR Machine</h3>
+          <p class="meta">Category: Biology<br>Location: Biology Lab, Room 206</p>
+          <p><span class="badge badge-approved">Available</span></p>
+          <a href="booking.html" class="btn">Book</a>
+         
+        </div>
+
+        <!-- cards under maintenance use class="card unavailable" and a disabled button -->
+        <div class="card unavailable">
+          
+          <h3>Electron Microscope</h3>
+          <p class="meta">Category: Biology<br>Location: Imaging Lab, Room 010</p>
+          <p><span class="badge badge-maintenance">Under Maintenance</span></p>
+          <button class="btn" disabled>Book</button>
+          
+        </div>
+
+        <div class="card unavailable">
+           
+          <h3>Fume Hood Unit</h3>
+          <p class="meta">Category: Chemistry<br>Location: Chemistry Lab, Room 108</p>
+          <p><span class="badge badge-maintenance">Under Maintenance</span></p>
+          <button class="btn" disabled>Book</button>
+         
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Digital Lab Equipment Booking | Team Project</p>
+  </footer>
+
+</body>
+</html>

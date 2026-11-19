@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Bookings - BioLab Equipment Booking</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Shared Header & Navigation -->
+  <header>
+    <nav>
+      <a href="index.html" class="logo">🔬 BioLab Equip</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="catalogue.html">Catalogue</a></li>
+        <li><a href="availability.html">Availability</a></li>
+        <li><a href="booking.html">Book Equipment</a></li>
+        <li><a href="history.html" class="active">My Bookings</a></li>
+        <li><a href="notifications.html">Notifications</a></li>
+        <li><a href="admin.html">Admin</a></li>
+        <li><a href="approvals.html">Approvals</a></li>
+        <li><a href="maintenance.html">Maintenance</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page-title">
+      <h1>My Booking History</h1>
+      <p>Track your laboratory instrument reservations, approval status, and manage active slots.</p>
+    </div>
+
+    <!-- Quick Stats Bar -->
+    <div class="card-grid" style="margin-bottom: 2rem;">
+      <div class="card stat-card ok">
+        <div class="number" id="hist-approved-count">0</div>
+        <div class="label">Approved Sessions</div>
+      </div>
+      <div class="card stat-card pending">
+        <div class="number" id="hist-pending-count">0</div>
+        <div class="label">Pending Decisions</div>
+      </div>
+      <div class="card stat-card total">
+        <div class="number" id="hist-total-count">0</div>
+        <div class="label">Total Reservations</div>
+      </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <div>
+        <label for="history-search" style="font-size: 0.85rem; color: var(--grey-text);">Search Bookings</label>
+        <input type="text" id="history-search" placeholder="Filter by ID, instrument, project...">
+      </div>
+
+      <div>
+        <label for="history-status" style="font-size: 0.85rem; color: var(--grey-text);">Filter by Status</label>
+        <select id="history-status">
+          <option value="all">All Statuses</option>
+          <option value="Approved">Approved</option>
+          <option value="Pending">Pending</option>
+          <option value="Rejected">Rejected</option>
+        </select>
+      </div>
+
+      <div style="margin-left: auto; align-self: flex-end;">
+        <a href="booking.html" class="btn">+ Reserve Another Instrument</a>
+      </div>
+    </div>
+
+    <!-- Table of Reservations -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Instrument</th>
+            <th>Date</th>
+            <th>Time Slot</th>
+            <th>Project & Details</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="history-tbody">
+          <!-- Populated dynamically -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Notification placeholder -->
+    <div id="status-message" style="margin-top: 1.5rem;"></div>
+  </main>
+
+  <!-- Shared Footer -->
+  <footer>
+    <p>&copy; 2026 BioLab Equipment Booking Portal &bull; Department of Biological Sciences &bull; Support: lab-support@biolab.edu</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    function renderHistory() {
+      const bookings = LabStore.getBookings();
+      const tbody = document.getElementById("history-tbody");
+      const searchTerm = document.getElementById("history-search").value.toLowerCase().trim();
+      const statusFilter = document.getElementById("history-status").value;
+
+      // Update counters
+      document.getElementById("hist-approved-count").textContent = bookings.filter(b => b.status === "Approved").length;
+      document.getElementById("hist-pending-count").textContent = bookings.filter(b => b.status === "Pending").length;
+      document.getElementById("hist-total-count").textContent = bookings.length;
+
+      const filtered = bookings.filter(b => {
+        const matchesSearch = b.id.toLowerCase().includes(searchTerm) ||
+                              b.equipmentName.toLowerCase().includes(searchTerm) ||
+                              b.project.toLowerCase().includes(searchTerm) ||
+                              b.date.includes(searchTerm);
+        const matchesStatus = (statusFilter === "all") || (b.status === statusFilter);
+        return matchesSearch && matchesStatus;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align: center; padding: 2rem; color: var(--grey-text);">
+              No booking records match your criteria.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(b => {
+        let badgeClass = "badge-pending";
+        if (b.status === "Approved") badgeClass = "badge-approved";
+        if (b.status === "Rejected") badgeClass = "badge-rejected";
+
+        const canCancel = b.status === "Pending" || b.status === "Approved";
+
+        return `
+          <tr>
+            <td><strong>${b.id}</strong></td>
+            <td>
+              <strong>${b.equipmentName}</strong><br>
+              <small style="color:var(--grey-text);">${b.user} (${b.role || 'Researcher'})</small>
+            </td>
+            <td>${b.date}</td>
+            <td>${b.timeSlot}</td>
+            <td>
+              <details style="margin: 0; padding: 0.3rem 0.6rem; font-size: 0.85rem;">
+                <summary style="font-weight: 500;">${b.project}</summary>
+                <p style="margin: 0.4rem 0 0; color: var(--grey-text); font-size: 0.8rem;">
+                  <strong>Notes:</strong> ${b.notes || 'None provided'}<br>
+                  <strong>Created:</strong> ${b.createdAt || 'N/A'}
+                </p>
+              </details>
+            </td>
+            <td><span class="badge ${badgeClass}">${b.status}</span></td>
+            <td>
+              ${canCancel 
+                ? `<button class="btn btn-reject btn-sm" onclick="cancelBooking('${b.id}')">Cancel</button>`
+                : `<span style="color:var(--grey-text); font-size:0.85rem;">None</span>`
+              }
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function cancelBooking(id) {
+      if (!confirm(`Are you sure you want to cancel reservation ${id}?`)) return;
+
+      const bookings = LabStore.getBookings();
+      const booking = bookings.find(b => b.id === id);
+      if (booking) {
+        booking.status = "Rejected";
+        LabStore.saveBookings(bookings);
+
+        LabStore.addNotification(
+          "warning",
+          "Reservation Cancelled",
+          `Booking ${id} for ${booking.equipmentName} on ${booking.date} has been cancelled.`
+        );
+
+        const msgBox = document.getElementById("status-message");
+        msgBox.innerHTML = `
+          <div class="alert alert-warning">
+            Booking <strong>${id}</strong> was successfully cancelled.
+          </div>
+        `;
+        setTimeout(() => { msgBox.innerHTML = ""; }, 4000);
+
+        renderHistory();
+      }
+    }
+
+    document.getElementById("history-search").addEventListener("input", renderHistory);
+    document.getElementById("history-status").addEventListener("change", renderHistory);
+    document.addEventListener("DOMContentLoaded", renderHistory);
+  </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Digital Lab Equipment Booking</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <div class="logo">Digital Lab Equipment Booking</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="equipment.html">Equipment</a>
+      <a href="booking.html">Book Now</a>
+      <a href="admin.html" class="active">Admin</a>
+      <a href="approvals.html">Approvals</a>
+      <a href="maintenance.html">Maintenance</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h1>Admin Dashboard</h1>
+      <p>Overview of today's lab equipment activity.</p>
+    </section>
+
+    <section>
+      <div class="card-grid">
+        <div class="card stat-card total">
+          <h3>Total Bookings</h3>
+          <p class="stat-number">128</p>
+        </div>
+        <div class="card stat-card pending">
+          <h3>Pending Requests</h3>
+          <p class="stat-number">14</p>
+        </div>
+        <div class="card stat-card ok">
+          <h3>Approved Today</h3>
+          <p class="stat-number">9</p>
+        </div>
+        <div class="card stat-card maint">
+          <h3>Equipment Under Maintenance</h3>
+          <p class="stat-number">3</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Quick Links</h2>
+      <div class="quick-links">
+        <a href="approvals.html" class="btn">Review Approvals</a>
+        <a href="maintenance.html" class="btn">Block Equipment for Maintenance</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Recent Bookings</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Equipment</th>
+              <th>User</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Digital Oscilloscope</td>
+              <td>Aarav Sharma</td>
+              <td>22 Oct 2026</td>
+              <td><span class="badge badge-approved">Approved</span></td>
+            </tr>
+            <tr>
+              <td>Microscope (Binocular)</td>
+              <td>Simran Kaur</td>
+              <td>22 Oct 2026</td>
+              <td><span class="badge badge-pending">Pending</span></td>
+            </tr>
+            <tr>
+              <td>3D Printer</td>
+              <td>Rohan Mehta</td>
+              <td>23 Oct 2026</td>
+              <td><span class="badge badge-pending">Pending</span></td>
+            </tr>
+            <tr>
+              <td>Spectrophotometer</td>
+              <td>Priya Verma</td>
+              <td>23 Oct 2026</td>
+              <td><span class="badge badge-approved">Approved</span></td>
+            </tr>
+            <tr>
+              <td>Soldering Station</td>
+              <td>Karan Singh</td>
+              <td>24 Oct 2026</td>
+              <td><span class="badge badge-rejected">Rejected</span></td>
+            </tr>
+            <tr>
+              <td>Function Generator</td>
+              <td>Neha Gupta</td>
+              <td>25 Oct 2026</td>
+              <td><span class="badge badge-pending">Pending</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Digital Lab Equipment Booking | College Group Project</p>
+  </footer>
+
+</body>
+</html>
